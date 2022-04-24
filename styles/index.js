@@ -1,4 +1,4 @@
-let wrapper = document.querySelector('.img__wrapper')
+/*let wrapper = document.querySelector('.img__wrapper')
 
 function donwload(input) {
     let file = input.files[0];
@@ -10,11 +10,10 @@ function donwload(input) {
         wrapper.appendChild(img);
         img.src = reader.result;
     }
-}
+}*/
 
 
 document.addEventListener("DOMContentLoaded", function (event) {
-
     let name = localStorage.getItem('name');
     if (name != null) {
         document.getElementById("author").value = name;
@@ -24,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 document.addEventListener("DOMContentLoaded", function (event) {
     let avatar_name = localStorage.getItem('avatar_name');
     if (avatar_name != null) {
-        document.getElementById("img").file = avatar_name;
+        document.getElementById("avatar").file = avatar_name;
     }
 });
 
@@ -32,8 +31,8 @@ const abuse = ['ViAgRA', 'xxx'];
 
 document.querySelector('button').onclick = () => {
 
-    let img = document.getElementById('img').value;
-    console.log(img);
+    let avatar = document.getElementById('avatar').value;
+    console.log(avatar);
     let author = document.getElementById('author').value;
     console.log(author);
     let text = document.querySelector('textarea').value;
@@ -48,7 +47,7 @@ document.querySelector('button').onclick = () => {
         }
     }
     if (localStorage.getItem('avatar_name') == null) {
-        localStorage.setItem('avatar_name', img);
+        localStorage.setItem('avatar_name', avatar);
     }
     if (localStorage.getItem('name') == null) {
         localStorage.setItem('name', author);

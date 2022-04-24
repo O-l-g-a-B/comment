@@ -21,9 +21,10 @@
         <div>
             <label for="avatar">Аватар</label>
         </div>
-        <div class="img__wrapper"></div>
+        <!--<div class="img__wrapper"></div>-->
         <div>
-            <input type="file" name="avatar" id="img" value="" class=inputs onchange="donwload(this)" />
+            <input type="url" name="image-link" id="avatar" placeholder="https://example.com" pattern="https://.*"
+                required>
         </div>
 
         <div>
