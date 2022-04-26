@@ -1,58 +1,72 @@
-/*let wrapper = document.querySelector('.img__wrapper')
-
-function donwload(input) {
-    let file = input.files[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = function () {
-        let img = document.createElement('img');
-        wrapper.appendChild(img);
-        img.src = reader.result;
-    }
-}*/
-
+let comments = [];
+loadComments();
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    let name = localStorage.getItem('name');
-    if (name != null) {
-        document.getElementById("author").value = name;
+    let name1 = localStorage.getItem('name1');
+    if (name1 != null) {
+        document.getElementById("comment-name").value = name1;
     }
 });
 
 document.addEventListener("DOMContentLoaded", function (event) {
     let avatar_name = localStorage.getItem('avatar_name');
     if (avatar_name != null) {
-        document.getElementById("avatar").file = avatar_name;
+        document.getElementById("comment-avatar").value = avatar_name;
     }
 });
 
 const abuse = ['ViAgRA', 'xxx'];
 
-document.querySelector('button').onclick = () => {
-
-    let avatar = document.getElementById('avatar').value;
-    console.log(avatar);
-    let author = document.getElementById('author').value;
-    console.log(author);
-    let text = document.querySelector('textarea').value;
+document.getElementById('comment-add').onclick = function () {
+    let commentAvatar = document.getElementById('comment-avatar').value;
+    let commentName = document.getElementById('comment-name').value;
+    let commentBody = document.getElementById('comment-body').value;
 
     for (let i = 0; i < abuse.length; i++) {
         //abuse[i]
-        while (author.indexOf(abuse[i]) != -1) {
+        while (commentName.indexOf(abuse[i]) != -1) {
             text = text.replace(abuse[i], star(abuse[i].length));
         }
-        while (text.indexOf(abuse[i]) != -1) {
+        while (commentBody.indexOf(abuse[i]) != -1) {
             text = text.replace(abuse[i], star(abuse[i].length));
         }
     }
     if (localStorage.getItem('avatar_name') == null) {
-        localStorage.setItem('avatar_name', avatar);
+        localStorage.setItem('avatar_name', commentAvatar);
     }
-    if (localStorage.getItem('name') == null) {
-        localStorage.setItem('name', author);
+    if (localStorage.getItem('name1') == null) {
+        localStorage.setItem('name1', commentName);
     }
-    document.querySelector('#out').innerHTML += '<div class="commet">' + author + ': ' + text + '</div>';
+
+    let comment = {
+        name: commentName,
+        body: commentBody,
+    }
+
+    commentBody.value = '';
+
+    comments.push(comment);
+    saveComments();
+    showComments();
+}
+
+function saveComments() {
+    localStorage.setItem('comments', JSON.stringify(comments));
+}
+
+function loadComments() {
+    if (localStorage.getItem('comments')) comments = JSON.parse(localStorage.getItem('comments'));
+    showComments();
+}
+
+function showComments() {
+    let commentField = document.getElementById('comment-field');
+    let out = '';
+    comments.forEach(function (item) {
+        out += `<p class="alert alert-primary" role="alert">${item.name}</p>`;
+        out += `<p class="alert alert-success" role="alert">${item.body}</p>`;
+    });
+    commentField.innerHTML = out;
 }
 
 function star(n) {
