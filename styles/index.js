@@ -25,10 +25,10 @@ document.getElementById('comment-add').onclick = function () {
     for (let i = 0; i < abuse.length; i++) {
         //abuse[i]
         while (commentName.indexOf(abuse[i]) != -1) {
-            text = text.replace(abuse[i], star(abuse[i].length));
+            text = text.replace(abuse[i], checkWordIsValid(abuse[i].length));
         }
         while (commentBody.indexOf(abuse[i]) != -1) {
-            text = text.replace(abuse[i], star(abuse[i].length));
+            text = text.replace(abuse[i], checkWordIsValid(abuse[i].length));
         }
     }
     if (localStorage.getItem('avatar_name') == null) {
@@ -69,7 +69,7 @@ function showComments() {
     commentField.innerHTML = out;
 }
 
-function star(n) {
+function checkWordIsValid()(n) {
     let out = '';
     for (let i = 0; i < n; i++) {
         out += '*';
